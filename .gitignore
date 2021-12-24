@@ -129,6 +129,7 @@ dmypy.json
 .pyre/
 
 # Useless stuff for versioning
+resources/
 releases/
 generator.py
 *.iml
