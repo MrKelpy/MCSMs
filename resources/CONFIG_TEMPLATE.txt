@@ -3,7 +3,7 @@
 ############################################################
 
 // This is the amount of RAM your server is allowed to use. Measured in Megabytes.
-ALLOCATED_RAM = 1000
+ALLOCATED_RAM = 1024
 
 // This will be your server's name.
 SERVER_NAME = MyServer
