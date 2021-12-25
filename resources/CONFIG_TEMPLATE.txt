@@ -11,7 +11,7 @@ SERVER_NAME = MyServer
 // This will be the IP of your server. Please note that this will only work if you have a domain that can handle these.
 // You probably know what you're doing if you're changing this line. 
 // The MCSMs do not come with custom IP Hosting.
-SERVER-IP = False
+SERVER-IP =
 
 // This will be the starting port of your server. This means that, if the port is occupied, the server will move on to the next available port.
 SERVER-PORT = 25565
