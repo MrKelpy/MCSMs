@@ -1,0 +1,58 @@
+############################################################
+#                      GENERAL CONFIGS                     #
+############################################################
+
+// This is the amount of RAM your server is allowed to use. Measured in Megabytes.
+ALLOCATED_RAM = 1024
+
+// This will be your server's name.
+SERVER_NAME = MyServer
+
+// This will be the IP of your server. Please note that this will only work if you have a domain that can handle these.
+// You probably know what you're doing if you're changing this line. 
+// The MCSMs do not come with custom IP Hosting.
+SERVER-IP =
+
+// This will be the starting port of your server. This means that, if the port is occupied, the server will move on to the next available port.
+SERVER-PORT = 25565
+
+############################################################
+#                      BACKUP CONFIGS                      #
+############################################################
+
+// This lets the program know if you want backups to be done or not.
+// You can set it to True or False depending on whether you want them on or off.
+// They come deactivated (set to False) by default.
+BACKUPS=False
+
+// This is the cooldown between each backup, measured in minutes.
+BACKUPS-COOLDOWN=120
+
+// This tells the program if you want to be notified in the console whenever a backup is done or not.
+// You can set it to True or False depending on whether you want or not.
+BACKUPS-NOTIFY=True
+
+// This setting changes the place where backups will be sent to.
+// Leave this blank in order to have them at the default place.
+BACKUPS-PATH=
+
+
+############################################################
+#                 PLAYERDATA BACKUP CONFIGS                #
+############################################################
+
+// This lets the program know if you want playerdata backups to be done or not.
+// You can set it to True or False depending on whether you want them on or off.
+// They come deactivated (set to False) by default.
+PLAYERDATA-BACKUPS=False
+
+// This is the cooldown between each playerdata backup, measured in minutes.
+PLAYERDATA-BACKUPS-COOLDOWN=120
+
+// This tells the program if you want to be notified in the console whenever a playerdata backup is done or not.
+// You can set it to True or False depending on whether you want or not.
+PLAYERDATA-BACKUPS-NOTIFY=True
+
+// This setting changes the place where playerdata backups will be sent to.
+// Leave this blank in order to have them at the default place.
+PLAYERDATA-BACKUPS-PATH=
