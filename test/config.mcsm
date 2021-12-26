@@ -1,0 +1,8 @@
+############################################################
+#                      GENERAL CONFIGS                     #
+############################################################
+
+// This is the amount of RAM your server is allowed to use. Measured in Megabytes.
+ALLOCATED_RAM = 1000
+A = 3
+F = 3

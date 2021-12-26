@@ -11,7 +11,7 @@ import os
 
 # Third Party Imports
 # Local Application Imports
-from MCSMApp import MCSMApp
+from MCSMServer import MCSMApp
 
 if __name__ == "__main__":
 
@@ -23,6 +23,7 @@ if __name__ == "__main__":
 
         logs_folder = r".\server_files\mcsm_logs"
         os.makedirs(logs_folder, exist_ok=True)
-
         with open(fr".\{logs_folder}\latest.log", "a") as logsfile:
             logsfile.write(f"[FATAL ERROR] {traceback.format_exc()}\n")
+
+        raise err
