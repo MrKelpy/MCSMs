@@ -130,6 +130,5 @@ dmypy.json
 
 # Useless stuff for versioning
 resources/
-releases/
-generator.py
+Generator/
 *.iml
