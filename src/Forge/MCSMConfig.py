@@ -13,7 +13,7 @@ import requests
 from bs4 import BeautifulSoup
 
 # Local Application Imports
-from Vanilla.MCSMLogger import MCSMLogger
+from MCSMLogger import MCSMLogger
 
 
 class MCSMConfig:

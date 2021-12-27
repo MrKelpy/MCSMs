@@ -17,9 +17,9 @@ import requests
 from bs4 import BeautifulSoup
 
 # Local Application Imports
-from Vanilla.exceptions import ImpossibleDownload
-from Vanilla.MCSMLogger import MCSMLogger
-from Vanilla.MCSMConfig import MCSMConfig
+from exceptions import ImpossibleDownload
+from MCSMLogger import MCSMLogger
+from MCSMConfig import MCSMConfig
 
 
 class MCSMServer(MCSMConfig):

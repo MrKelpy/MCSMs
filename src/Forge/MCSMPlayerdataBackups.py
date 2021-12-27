@@ -14,8 +14,8 @@ import tarfile
 # Local Application Imports
 import time
 
-from Forge.MCSMLogger import MCSMLogger
-from Forge.MCSMConfig import MCSMConfig
+from MCSMLogger import MCSMLogger
+from MCSMConfig import MCSMConfig
 
 
 class MCSMPlayerdataBackups(MCSMConfig):

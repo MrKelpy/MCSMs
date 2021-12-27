@@ -18,8 +18,8 @@ import requests
 from bs4 import BeautifulSoup
 
 # Local Application Imports
-from Forge.MCSMLogger import MCSMLogger
-from Forge.MCSMConfig import MCSMConfig
+from MCSMLogger import MCSMLogger
+from MCSMConfig import MCSMConfig
 
 
 class MCSMServer(MCSMConfig):
@@ -72,7 +72,7 @@ class MCSMServer(MCSMConfig):
             # Performs an initialization run to create the properties
             self.__logger.log("Initializing Server... (Phase 2)")
             proc = self.__start_server()
-            self.__process_output(proc, output=False, exit_at="Reloading ResourceManager")
+            self.__process_output(proc, output=True, exit_at="Loading properties")
 
 
         # Print the server information, and start it.

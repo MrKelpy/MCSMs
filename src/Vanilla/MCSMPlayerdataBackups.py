@@ -14,8 +14,8 @@ import tarfile
 # Local Application Imports
 import time
 
-from Vanilla.MCSMLogger import MCSMLogger
-from Vanilla.MCSMConfig import MCSMConfig
+from MCSMLogger import MCSMLogger
+from MCSMConfig import MCSMConfig
 
 
 class MCSMPlayerdataBackups(MCSMConfig):

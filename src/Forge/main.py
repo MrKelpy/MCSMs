@@ -13,11 +13,11 @@ import os
 
 # Third Party Imports
 # Local Application Imports
-import Forge.exceptions
-from Forge.MCSMServer import MCSMServer
-from Forge.MCSMBackups import MCSMBackups
-from Forge.MCSMPlayerdataBackups import MCSMPlayerdataBackups
-from Forge.MCSMLogger import MCSMLogger
+import exceptions
+from MCSMServer import MCSMServer
+from MCSMBackups import MCSMBackups
+from MCSMPlayerdataBackups import MCSMPlayerdataBackups
+from MCSMLogger import MCSMLogger
 
 if __name__ == "__main__":
 
@@ -38,4 +38,4 @@ if __name__ == "__main__":
         with open(fr".\{logs_folder}\latest.log", "a") as logsfile:
             logsfile.write(f"[FATAL ERROR] {traceback.format_exc()}\n")
 
-        raise Forge.exceptions.FatalException(traceback.format_exc())
+        raise exceptions.FatalException(traceback.format_exc())
