@@ -9,6 +9,7 @@ __license__ = "GNU GENERAL PUBLIC LICENSE v3"
 from datetime import datetime
 import os
 import zipfile
+import threading
 
 # Third Party Imports
 # Local Application Imports
@@ -26,6 +27,8 @@ class MCSMLogger:
         self.__logs_folder = os.path.join(self.__server_files_path, "mcsm_logs")
         self._logging_session = f"{now.year}.{now.month}.{now.day}.{now.hour}.{now.minute}.{now.second}"
         self._latest_log = os.path.join(self.__logs_folder, "latest.log")
+        self.__lock = threading.Lock()
+        self._initialize_logging()
 
 
     def log(self, message: str, level: str="INFO", console=True):
@@ -41,9 +44,10 @@ class MCSMLogger:
 
         log_string = f"[{now.day}/{now.month}/{now.year} {now.hour}:{lead}{now.minute}][MCSM/{level}] {message.strip()}"
 
-        with open(self._latest_log, "a") as logfile:
-            logfile.write(log_string + '\n')
-        if console: print(log_string)
+        with self.__lock:
+            with open(self._latest_log, "a") as logfile:
+                logfile.write(log_string + '\n')
+            if console: print(log_string)
 
 
     def _initialize_logging(self):
