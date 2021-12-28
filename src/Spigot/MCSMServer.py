@@ -8,19 +8,16 @@ __license__ = "GNU GENERAL PUBLIC LICENSE v3"
 # Built-in Imports
 import contextlib
 import os
-import shutil
-import sys
-import subprocess
 import socket
+import subprocess
+import sys
 
 # Third Party Imports
 import requests
-from bs4 import BeautifulSoup
 
 # Local Application Imports
 from MCSMLogger import MCSMLogger
 from MCSMConfig import MCSMConfig
-
 
 class MCSMServer(MCSMConfig):
     """
@@ -33,12 +30,12 @@ class MCSMServer(MCSMConfig):
         super().__init__(logger)
 
         # Essential properties to define the server "identity"
-        self.version = "1.16.5"
-        self.resources_url = "https://dl.dropbox.com/s/7emia0zggpyxld8/RESOURCES.zip?dl=0"
+        self.version = "1.17.1"
+        self.resources_url = fr"https://download.getbukkit.org/spigot/spigot-{self.version}.jar"
 
         # Properties to be used during execution
         self._server_files_path = os.path.join(os.getcwd(), "server_files")
-        self._server_path = os.path.join(self._server_files_path, f"forge-{self.version}.jar")
+        self._server_path = os.path.join(self._server_files_path, f"minecraft_server.{self.version}.jar")
         self.__logger = logger
         self.__ensure_file_integrity()
         self._settings = self.load_settings()
@@ -72,7 +69,7 @@ class MCSMServer(MCSMConfig):
             # Performs an initialization run to create the properties
             self.__logger.log("Initializing Server... (Phase 2)")
             proc = self.__start_server()
-            self.__process_output(proc, output=True, exit_at="Loading properties")
+            self.__process_output(proc, output=False, exit_at="Preparing level")
 
 
         # Print the server information, and start it.
@@ -82,7 +79,7 @@ class MCSMServer(MCSMConfig):
 Minecraft Server Makers - {__copyright__}
 Running {self._settings["server_name"]}
 IP Address: {self._settings["server-ip"]}:{self._settings["server-port"]}
-Version: Forge {self.version}
+Version: Vanilla {self.version}
 Allocated RAM: {self._settings["allocated_ram"]}MB ({int(self._settings["allocated_ram"])/1024} GB)
 > REQUIRES LAN CONNECTION <
 Recommended: https://www.radmin-vpn.com/
@@ -100,24 +97,6 @@ Recommended: https://www.radmin-vpn.com/
         self.__process_output(proc)
 
 
-    def __get_config_file(self):
-        """
-        Gets the config template from github.
-        :return:
-        """
-
-        config_template_url = "https://github.com/MrKelpy/MCSMs/blob/master/resources/CONFIG_TEMPLATE3.0.txt"
-        self.__logger.log(f"Getting config template from {config_template_url}")
-        data = requests.get(config_template_url)
-        soup = BeautifulSoup(data.text, "html.parser")
-        config_template = ""
-
-        for line in soup.find_all("tr"):
-            config_template += f"{line.text.strip()}\n"
-
-        return config_template
-
-
     def __ensure_file_integrity(self):
         """
         Ensures that the server is capable of being run by detecting if
@@ -126,20 +105,6 @@ Recommended: https://www.radmin-vpn.com/
         """
         self.add_separator()
         self.__logger.log("Ensuring file integrity...")
-
-        # Create the server files folder if it doesn't already exist
-        if not os.path.isdir(self._server_files_path):
-            os.makedirs(self._server_files_path, exist_ok=True)
-            self.__logger.log(f"Created server_files folder at {self._server_files_path}")
-
-        # Checks if the config.mcsm file exists. If not, check the template on GitHub
-        # and create the file.
-        if not os.path.isfile(self.config_path):
-            config_template = self.__get_config_file()
-
-            with open(self.config_path, "w") as config_file:
-                self.__logger.log(f"Creating mcsm.config file at {self.config_path}")
-                config_file.write(config_template)
 
         # Checks if the forge jar is present inside the server files folder.
         for item in os.listdir(self._server_files_path):
@@ -158,8 +123,8 @@ Recommended: https://www.radmin-vpn.com/
         :return:
         """
         self.add_separator()
-        resources_downloading_path = os.path.join(self._server_files_path, "downloading.zip")
-        resources_downloaded_path = os.path.join(self._server_files_path, f"RESOURCES.zip")
+        resources_downloading_path = os.path.join(self._server_files_path, "downloading.jar")
+        resources_downloaded_path = os.path.join(self._server_files_path, f"minecraft_server.{self.version}.jar")
 
         # Removes any files blocking up the paths
         with contextlib.suppress(FileNotFoundError):
@@ -191,8 +156,6 @@ Recommended: https://www.radmin-vpn.com/
 
         print()
         os.rename(resources_downloading_path, resources_downloaded_path)
-        shutil.unpack_archive(resources_downloaded_path, extract_dir=self._server_files_path)
-        os.remove(resources_downloaded_path)
 
 
     def __verify_port(self):
@@ -255,7 +218,8 @@ Recommended: https://www.radmin-vpn.com/
         """
 
         proc = subprocess.Popen(
-            ["java", f'-Xmx{self._settings["allocated_ram"]}M', f'-Xms{self._settings["allocated_ram"]}M', '-jar', f'{self._server_path}', 'nogui'],
+            ["java", f'-Xmx{self._settings["allocated_ram"]}M', f'-Xms{self._settings["allocated_ram"]}M',
+             '-DIReallyKnowWhatIAmDoingISwear', '-jar', f'{self._server_path}', 'nogui'],
             cwd=self._server_files_path,
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT
@@ -267,7 +231,7 @@ Recommended: https://www.radmin-vpn.com/
         """
         Handles any operation to be done with the output from
         the server.
-        :param output: If set to True, won't log any output
+        :param output: If set to False, will ignore the output.
         :param exit_at: String to exit the run when reached.
         :return:
         """
@@ -293,7 +257,7 @@ Recommended: https://www.radmin-vpn.com/
 
             # Checks if the subproccess has been terminated, if so, break.
             if proc.poll() is not None:
-                break
+                return
 
 
     def __load_configs(self):

@@ -242,15 +242,16 @@ Recommended: https://www.radmin-vpn.com/
             ["java", f'-Xmx{self._settings["allocated_ram"]}M', f'-Xms{self._settings["allocated_ram"]}M', '-jar', f'{self._server_path}', 'nogui'],
             cwd=self._server_files_path,
             stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT
         )
         return proc
 
 
-    def __process_output(self, proc: subprocess.Popen, exit_at: str = None, output=False):
+    def __process_output(self, proc: subprocess.Popen, exit_at: str = None, output: bool = True):
         """
         Handles any operation to be done with the output from
         the server.
-        :param ignore_output: If set to True, won't log any output
+        :param output: If set to True, won't log any output
         :param exit_at: String to exit the run when reached.
         :return:
         """
