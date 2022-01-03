@@ -1,8 +1,8 @@
-# -*- coding: utf-8 -*-
+# -*- coding: latin-1 -*-
 # Created at 27/12/2021
 __author__ = "MrKelpy / Alexandre Silva"
 __github__ = "github.com/MrKelpy"
-__copyright__ = "Â© Alexandre Silva 2021"
+__copyright__ = "© Alexandre Silva 2021"
 __license__ = "GNU GENERAL PUBLIC LICENSE v3"
 
 # Built-in Imports
@@ -19,13 +19,14 @@ class MCSMGenerator:
     new MCSM releases.
     """
 
-    def __init__(self, mcsm_type: str, version: str):
+    def __init__(self, mcsm_type: str, version: str, mcver: str):
         self.__icon_path = r"./icon.ico"
         self.__license_path = r"./LICENSE"
         self.__mcsm_type = mcsm_type
         self.__mcsm_folder_path = fr"../{self.__mcsm_type.title()}"
         self.__releases_path = r"./releases"
         self.__version = version
+        self.__mcver = mcver
         self.__readme_path = "./README.txt"
 
 
@@ -75,7 +76,7 @@ class MCSMGenerator:
         shutil.copy(self.__readme_path, build_path)
 
         # Zips everything up and deletes the build folder.
-        release_path = os.path.join(self.__releases_path, fr"MCSMv{self.__version}-{self.__mcsm_type}.{self.__version}")
+        release_path = os.path.join(self.__releases_path, fr"MCSMv{self.__version}-{self.__mcsm_type}.{self.__mcver}")
         shutil.make_archive(release_path, "zip", build_path)
         shutil.rmtree(build_path)
 
@@ -85,6 +86,7 @@ class MCSMGenerator:
 if __name__ == "__main__":
     mcsm_type = input("MCSM TYPE: ").strip()
     mcsm_version = input("MCSM VERSION: ").strip()
-    MCSMGenerator(mcsm_type, mcsm_version).run()
+    server_version = input("MINECRAFT VERSION: ")
+    MCSMGenerator(mcsm_type, mcsm_version, server_version).run()
 
 

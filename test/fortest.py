@@ -1,8 +1,8 @@
-# -*- coding: utf-8 -*-
+# -*- coding: latin-1 -*-
 # Created at 22/12/2021
 __author__ = "MrKelpy / Alexandre Silva"
 __github__ = "github.com/MrKelpy"
-__copyright__ = "Â© Alexandre Silva 2021"
+__copyright__ = "© Alexandre Silva 2021"
 __license__ = "GNU GENERAL PUBLIC LICENSE v3"
 
 # Built-in Imports

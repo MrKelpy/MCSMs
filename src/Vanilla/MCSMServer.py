@@ -1,8 +1,8 @@
-# -*- coding: utf-8 -*-
+# -*- coding: latin-1 -*-
 # Created at 20/12/2021
 __author__ = "MrKelpy / Alexandre Silva"
 __github__ = "github.com/MrKelpy"
-__copyright__ = "Â© Alexandre Silva 2021"
+__copyright__ = "© Alexandre Silva 2021"
 __license__ = "GNU GENERAL PUBLIC LICENSE v3"
 
 # Built-in Imports
@@ -33,7 +33,7 @@ class MCSMServer(MCSMConfig):
         super().__init__(logger)
 
         # Essential properties to define the server "identity"
-        self.version = "1.16.5"
+        self.version = "1.17.1"
         self.resources_url = self.__build_resources_url()
 
         # Properties to be used during execution
@@ -242,7 +242,6 @@ Recommended: https://www.radmin-vpn.com/
             ["java", f'-Xmx{self._settings["allocated_ram"]}M', f'-Xms{self._settings["allocated_ram"]}M', '-jar', f'{self._server_path}', 'nogui'],
             cwd=self._server_files_path,
             stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT
         )
         return proc
 
@@ -264,7 +263,7 @@ Recommended: https://www.radmin-vpn.com/
                 continue
 
             # Log the decoded message from the minecraft log
-            decoded_log = line.decode("UTF-8").strip()
+            decoded_log = line.decode("latin-1").strip()
 
             # Exits the process if a line was reached
             if exit_at and exit_at in decoded_log:
